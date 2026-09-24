@@ -22,6 +22,29 @@ PiComms/                         ← folder na Drive osoby, która założyła c
 
 Każda wiadomość to osobny plik, więc dwie osoby piszące jednocześnie nigdy nie nadpiszą sobie danych. Pliki są oznaczone polami `properties` (`type=message` / `type=profile`), dzięki czemu aplikacja pobiera tylko nowe wiadomości.
 
+## Instalacja na iPhonie – przez TestFlight (bez Maca, bez wygasania co 7 dni)
+
+Apple nie pozwala instalować aplikacji z linku jak na Androidzie. Najprościej jest przez **TestFlight** (oficjalna aplikacja Apple): dostajesz link, instalujesz, a aplikacja aktualizuje się jak ze sklepu. Build działa 90 dni; nowy wysyłasz jednym kliknięciem na GitHubie.
+
+Aplikację buduje GitHub (Mac w chmurze), więc nie potrzebujesz własnego Maca. Potrzebujesz za to konta **Apple Developer Program** (99 USD/rok, <https://developer.apple.com/programs/>).
+
+1. **Identyfikator aplikacji**: na <https://developer.apple.com/account/resources/identifiers> dodaj App ID z Bundle ID `pl.pikczu.PiComms`.
+2. **Aplikacja w App Store Connect**: na <https://appstoreconnect.apple.com> → Aplikacje → „+” → Nowa aplikacja (platforma iOS, ten sam Bundle ID, dowolne SKU, np. `picomms`).
+3. **Klucz API**: App Store Connect → Użytkownicy i dostęp → Integracje → **App Store Connect API** → wygeneruj klucz z rolą **Admin**. Pobierz plik `AuthKey_XXXX.p8` (da się go pobrać tylko raz) i zanotuj **Key ID** oraz **Issuer ID**.
+4. **Sekrety na GitHubie**: repozytorium → Settings → Secrets and variables → Actions → New repository secret:
+
+   | Nazwa | Wartość |
+   | --- | --- |
+   | `APPLE_TEAM_ID` | Team ID z <https://developer.apple.com/account> (Membership details) |
+   | `ASC_KEY_ID` | Key ID klucza API |
+   | `ASC_ISSUER_ID` | Issuer ID |
+   | `ASC_KEY_P8` | cała zawartość pliku `.p8` (razem z liniami `BEGIN`/`END`) |
+
+5. **Wysyłka**: Actions → **iOS** → **Run workflow**. Po ok. 10–20 minutach build pojawi się w App Store Connect → TestFlight (za pierwszym razem odpowiedz na pytanie o szyfrowanie: „Brak / tylko standardowe”).
+6. **Testerzy**: TestFlight → Testowanie wewnętrzne → dodaj siebie; dziewczynę dodaj jako użytkownika App Store Connect (albo przez testowanie zewnętrzne z publicznym linkiem). Oboje instalujecie **TestFlight** z App Store i PiComms z zaproszenia.
+
+Każdy push do repozytorium jest też automatycznie kompilowany na GitHubie – widać od razu, czy kod się buduje.
+
 ## Konfiguracja (jednorazowo, ok. 15 minut)
 
 Potrzebujesz Maca z Xcode 15 lub nowszym oraz konta Google.
@@ -49,8 +72,8 @@ Potrzebujesz Maca z Xcode 15 lub nowszym oraz konta Google.
 3. Zaznacz target **PiComms → Signing & Capabilities → Team** i wybierz swoje konto Apple.
    Jeśli Xcode zgłosi, że Bundle ID jest zajęty, zmień go (np. `pl.twojenazwisko.PiComms`) – i wpisz ten sam w kliencie iOS w Google Cloud.
 4. Podłącz iPhone’a, wybierz go jako cel i naciśnij **Run** (⌘R). Powtórz dla telefonu dziewczyny.
+   (To alternatywa dla TestFlight, jeśli masz Maca – z darmowym kontem Apple aplikacja działa wtedy 7 dni.)
 
-> Z darmowym kontem Apple aplikacja zainstalowana z Xcode działa 7 dni, potem trzeba ją zainstalować ponownie. Z płatnym kontem Apple Developer możesz ją rozesłać przez TestFlight.
 
 ## Pierwsze uruchomienie
 
@@ -62,7 +85,8 @@ Potrzebujesz Maca z Xcode 15 lub nowszym oraz konta Google.
 
 ## Warto wiedzieć
 
-- **Tryb testowy Google**: dopóki aplikacja jest w trybie „Testing” w Google Cloud, Google unieważnia logowanie co 7 dni – aplikacja wtedy po prostu poprosi o ponowne zalogowanie. Żeby tego uniknąć, możesz w **Audience** kliknąć **Publish app**; przy logowaniu pojawi się wtedy ostrzeżenie „Google nie zweryfikował tej aplikacji” (Zaawansowane → Przejdź do PiComms), co przy prywatnym użyciu jest w porządku.
+- **Aplikacja nigdy sama nie wylogowuje.** Po uruchomieniu od razu otwiera czat z zapisaną historią (także offline). Jeśli Google unieważni logowanie, u góry pojawi się pomarańczowy pasek „połącz ponownie”.
+- **Tryb testowy Google**: dopóki aplikacja jest w trybie „Testing” w Google Cloud, Google unieważnia logowanie co 7 dni (wtedy pojawia się wspomniany pasek). Żeby tego uniknąć, możesz w **Audience** kliknąć **Publish app**; przy logowaniu pojawi się wtedy ostrzeżenie „Google nie zweryfikował tej aplikacji” (Zaawansowane → Przejdź do PiComms), co przy prywatnym użyciu jest w porządku.
 - **Uprawnienia**: aplikacja prosi o pełny dostęp do Drive, bo tylko wtedy druga osoba może czytać pliki utworzone przez Ciebie we wspólnym folderze. Aplikacja korzysta wyłącznie z folderu `PiComms`, a tokeny logowania trzyma w Keychain telefonu.
 - **Powiadomienia push** nie są obsługiwane – Google Drive nie potrafi „obudzić” aplikacji. Nowe wiadomości pojawiają się, gdy aplikacja jest otwarta.
 

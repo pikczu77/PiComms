@@ -1,0 +1,43 @@
+name: Web (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+    paths: ["web/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Konfiguracja logowania Google
+        env:
+          CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: |
+          node -e '
+            const config = { googleClientId: process.env.CLIENT_ID || "", googleClientSecret: process.env.CLIENT_SECRET || "" };
+            require("fs").writeFileSync("web/config.js", "export const CONFIG = " + JSON.stringify(config, null, 2) + ";\n");
+          '
+          sed -i "s/__BUILD__/${{ github.run_number }}/" web/sw.js
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -22,7 +22,38 @@ PiComms/                         ← folder na Drive osoby, która założyła c
 
 Każda wiadomość to osobny plik, więc dwie osoby piszące jednocześnie nigdy nie nadpiszą sobie danych. Pliki są oznaczone polami `properties` (`type=message` / `type=profile`), dzięki czemu aplikacja pobiera tylko nowe wiadomości.
 
-## Instalacja na iPhonie – przez TestFlight (bez Maca, bez wygasania co 7 dni)
+## Wersja webowa (za darmo, bez konta Apple) – zalecana
+
+Folder `web/` to ta sama aplikacja jako **PWA**: otwierasz link w Safari, dodajesz do ekranu początkowego i działa jak zwykła aplikacja (pełny ekran, własna ikona). Nie wygasa, nie wymaga Maca ani płatnego konta Apple. Dane na Google Drive mają ten sam format co w wersji iOS.
+
+### Publikacja (jednorazowo)
+
+1. Na GitHubie: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. Zmiany muszą trafić na gałąź `main` – wtedy workflow **Web (GitHub Pages)** sam opublikuje stronę pod adresem
+   **https://pikczu77.github.io/PiComms/**.
+
+### Logowanie Google dla wersji webowej
+
+1. W Google Cloud Console (projekt, Drive API i ekran zgody jak w sekcji „Konfiguracja Google Cloud” niżej) utwórz **OAuth client ID** typu **Web application**:
+   - Authorized JavaScript origins: `https://pikczu77.github.io`
+   - Authorized redirect URIs: `https://pikczu77.github.io/PiComms/`
+2. Na GitHubie: **Settings → Secrets and variables → Actions**:
+   - zakładka **Variables** → `GOOGLE_CLIENT_ID` = Client ID,
+   - zakładka **Secrets** → `GOOGLE_CLIENT_SECRET` = Client secret.
+3. **Actions → Web (GitHub Pages) → Run workflow**, żeby opublikować stronę z nowymi ustawieniami.
+4. **Google Auth Platform → Audience → Publish app** („In production”) – wtedy logowanie nie wygasa co 7 dni. Przy logowaniu zobaczycie ostrzeżenie „Google nie zweryfikował tej aplikacji” → *Zaawansowane* → *Przejdź do PiComms*.
+
+> Client secret trafia do kodu strony (inaczej przeglądarka nie dostałaby trwałego logowania). Dla prywatnej aplikacji dla dwóch osób to akceptowalne – w najgorszym razie można go w każdej chwili wygenerować na nowo w Google Cloud.
+
+### Instalacja na iPhonie
+
+1. Otwórz **https://pikczu77.github.io/PiComms/** w **Safari**.
+2. **Udostępnij** → **Do ekranu początkowego** → **Dodaj**.
+3. Uruchom PiComms z ikony i zaloguj się przez Google.
+
+Aplikacja nie wylogowuje sama: po uruchomieniu od razu otwiera czat z historią, a gdyby Google unieważnił logowanie, pojawi się tylko pomarańczowy pasek „połącz ponownie”.
+
+## Wersja natywna iOS – przez TestFlight (wymaga Apple Developer Program, 99 USD/rok)
 
 Apple nie pozwala instalować aplikacji z linku jak na Androidzie. Najprościej jest przez **TestFlight** (oficjalna aplikacja Apple): dostajesz link, instalujesz, a aplikacja aktualizuje się jak ze sklepu. Build działa 90 dni; nowy wysyłasz jednym kliknięciem na GitHubie.
 

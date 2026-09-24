@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>PiComms</title>
+  <meta name="description" content="Prywatny czat dla dwojga zapisywany na Google Drive">
+  <meta name="theme-color" content="#e85c8c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PiComms">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Logowanie -->
+  <section id="screen-signin" class="screen center" hidden>
+    <img src="icons/icon-192.png" alt="" class="logo">
+    <h1>PiComms</h1>
+    <p class="muted">Prywatny czat dla dwojga.<br>Wiadomości są zapisywane na Twoim Google Drive.</p>
+    <p id="signin-not-configured" class="error" hidden>
+      Aplikacja nie ma jeszcze skonfigurowanego logowania Google (instrukcja w README).
+    </p>
+    <p id="signin-error" class="error" hidden></p>
+    <button id="btn-signin" class="primary wide">Zaloguj się przez Google</button>
+    <p id="install-hint" class="muted small" hidden>
+      Wskazówka: w Safari dotknij <strong>Udostępnij</strong> → <strong>Do ekranu początkowego</strong>,
+      żeby PiComms działał jak zwykła aplikacja.
+    </p>
+  </section>
+
+  <!-- Ładowanie -->
+  <section id="screen-loading" class="screen center" hidden>
+    <div class="spinner"></div>
+    <p class="muted">Łączenie z Google Drive…</p>
+  </section>
+
+  <!-- Błąd -->
+  <section id="screen-failed" class="screen center" hidden>
+    <h2>Coś poszło nie tak</h2>
+    <p id="failed-message" class="muted"></p>
+    <button id="btn-failed-retry" class="primary">Spróbuj ponownie</button>
+    <button id="btn-failed-signout" class="link danger">Wyloguj się</button>
+  </section>
+
+  <!-- Zakładanie czatu -->
+  <section id="screen-setup" class="screen scroll" hidden>
+    <h1 class="title">Nowy czat</h1>
+    <p class="muted">Zalogowano jako <span id="setup-email"></span></p>
+
+    <div class="card">
+      <h3>Zaproś drugą osobę</h3>
+      <input id="setup-partner" type="email" placeholder="adres@gmail.com" autocomplete="email" autocapitalize="none">
+      <button id="btn-create-chat" class="primary wide">Utwórz czat i wyślij zaproszenie</button>
+      <p class="muted small">Na Twoim Google Drive powstanie folder „PiComms”, udostępniony tej osobie.</p>
+    </div>
+
+    <div class="card">
+      <h3>Masz już zaproszenie?</h3>
+      <button id="btn-check-invite" class="wide">Sprawdź, czy dostałem zaproszenie</button>
+      <p class="muted small">Jeśli druga osoba już utworzyła czat, aplikacja sama go znajdzie.</p>
+    </div>
+
+    <p id="setup-error" class="error" hidden></p>
+    <button id="btn-setup-signout" class="link danger">Wyloguj się</button>
+  </section>
+
+  <!-- Czat -->
+  <section id="screen-chat" class="screen chat" hidden>
+    <header class="chat-header">
+      <div class="partner">
+        <div id="partner-avatar"></div>
+        <div>
+          <div id="partner-name" class="partner-name"></div>
+          <div id="sync-status" class="sync-status" hidden>Brak połączenia z Drive</div>
+        </div>
+      </div>
+      <button id="btn-open-profile" class="avatar-button" aria-label="Mój profil"></button>
+    </header>
+    <button id="reauth-banner" class="reauth" hidden>
+      Połączenie z Google wygasło – dotknij, aby połączyć
+    </button>
+    <main id="messages" class="messages"></main>
+    <form id="composer" class="composer">
+      <textarea id="draft" rows="1" placeholder="Wiadomość" enterkeyhint="send"></textarea>
+      <button id="btn-send" type="submit" class="send" aria-label="Wyślij" disabled>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 4l7 7-1.4 1.4L13 7.8V20h-2V7.8l-4.6 4.6L5 11z"/></svg>
+      </button>
+    </form>
+  </section>
+
+  <!-- Profil -->
+  <dialog id="profile-dialog">
+    <form method="dialog" id="profile-form">
+      <header class="sheet-header">
+        <button value="cancel" class="link">Anuluj</button>
+        <strong>Profil</strong>
+        <button id="btn-profile-save" value="save" class="link bold">Zapisz</button>
+      </header>
+      <div class="profile-avatar">
+        <div id="profile-avatar-preview"></div>
+        <label class="link">
+          <span id="profile-photo-label">Dodaj zdjęcie</span>
+          <input id="profile-photo" type="file" accept="image/*" hidden>
+        </label>
+        <button type="button" id="btn-remove-photo" class="link danger" hidden>Usuń zdjęcie</button>
+      </div>
+      <label class="field">
+        <span class="muted small">Nazwa użytkownika</span>
+        <input id="profile-name" type="text" placeholder="Jak mam się wyświetlać?" maxlength="40" autocapitalize="words">
+      </label>
+      <p class="muted small">Konto Google: <span id="profile-email"></span></p>
+      <p class="muted small" id="profile-partner" hidden></p>
+      <p id="profile-error" class="error" hidden></p>
+      <button type="button" id="btn-profile-signout" class="link danger">Wyloguj się</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -94,8 +94,9 @@ final class ChatStore {
         phase = .ready
         let synced = await refresh()
         if synced, myProfileFileId == nil {
-            let name = googleDisplayName ?? (try? await drive.currentUser().displayName) ?? myEmail
-            try? await saveProfile(displayName: name, avatar: nil)
+            var name = googleDisplayName
+            if name == nil { name = try? await drive.currentUser().displayName }
+            try? await saveProfile(displayName: name ?? myEmail, avatar: nil)
         }
         startPolling()
     }

@@ -2,7 +2,9 @@ import SwiftUI
 
 struct ChatView: View {
     let store: ChatStore
+    @Environment(GoogleAuth.self) private var auth
     @State private var draft = ""
+    @State private var reauthError: String?
     @State private var showProfile = false
 
     private var canSend: Bool {
@@ -46,6 +48,9 @@ struct ChatView: View {
                     withAnimation { proxy.scrollTo(lastId, anchor: .bottom) }
                 }
             }
+            .safeAreaInset(edge: .top) {
+                if auth.needsReauth { reauthBanner }
+            }
             .safeAreaInset(edge: .bottom) { inputBar }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -72,12 +77,39 @@ struct ChatView: View {
                 Text(store.partnerProfile?.displayName ?? "Czekam na drugą osobę…")
                     .font(.headline)
                     .lineLimit(1)
-                if store.syncError != nil {
+                if store.syncError != nil, !auth.needsReauth {
                     Text("Brak połączenia z Drive")
                         .font(.caption2)
                         .foregroundStyle(.red)
                 }
             }
+        }
+    }
+
+    private var reauthBanner: some View {
+        Button {
+            Task {
+                do {
+                    try await auth.signIn()
+                    reauthError = nil
+                    await store.refresh()
+                } catch AuthError.cancelled {
+                } catch {
+                    reauthError = error.localizedDescription
+                }
+            }
+        } label: {
+            VStack(spacing: 2) {
+                Label("Połączenie z Google wygasło – dotknij, aby połączyć", systemImage: "arrow.triangle.2.circlepath")
+                    .font(.subheadline.weight(.semibold))
+                if let reauthError {
+                    Text(reauthError).font(.caption2)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(10)
+            .foregroundStyle(.white)
+            .background(Color.orange)
         }
     }
 

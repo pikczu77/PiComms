@@ -46,6 +46,14 @@ final class ChatStore {
     // MARK: - Start / zakładanie czatu
 
     func start() async {
+        // Znana rozmowa: od razu pokazujemy czat z pamięci, a synchronizacja idzie w tle.
+        // Dzięki temu brak internetu czy wygasłe logowanie Google nie wyrzucają z aplikacji.
+        if let saved = SavedSession.load() {
+            myEmail = saved.email
+            if phase != .ready { await open(folderId: saved.folderId) }
+            return
+        }
+
         phase = .loading
         do {
             let user = try await drive.currentUser()
@@ -81,11 +89,13 @@ final class ChatStore {
 
     private func open(folderId: String) async {
         self.folderId = folderId
+        SavedSession(email: myEmail, folderId: folderId).save()
         loadCache()
         phase = .ready
         let synced = await refresh()
         if synced, myProfileFileId == nil {
-            try? await saveProfile(displayName: googleDisplayName ?? myEmail, avatar: nil)
+            let name = googleDisplayName ?? (try? await drive.currentUser().displayName) ?? myEmail
+            try? await saveProfile(displayName: name, avatar: nil)
         }
         startPolling()
     }
@@ -285,6 +295,31 @@ final class ChatStore {
     private func setStatus(_ status: Message.Status, for id: String) {
         guard let index = messages.firstIndex(where: { $0.id == id }) else { return }
         messages[index].status = status
+    }
+
+    // MARK: - Zapamiętana rozmowa
+
+    private struct SavedSession: Codable {
+        static let key = "picomms.session"
+
+        let email: String
+        let folderId: String
+
+        static func load() -> SavedSession? {
+            guard let data = UserDefaults.standard.data(forKey: key) else { return nil }
+            return try? JSONDecoder().decode(SavedSession.self, from: data)
+        }
+
+        func save() {
+            if let data = try? JSONEncoder().encode(self) {
+                UserDefaults.standard.set(data, forKey: Self.key)
+            }
+        }
+    }
+
+    /// Wywoływane przy świadomym wylogowaniu – kolejne konto zacznie od wyszukania czatu.
+    static func forgetSavedSession() {
+        UserDefaults.standard.removeObject(forKey: SavedSession.key)
     }
 
     // MARK: - Lokalna pamięć podręczna (działa też offline)

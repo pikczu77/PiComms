@@ -16,10 +16,15 @@ struct RootView: View {
     @Environment(GoogleAuth.self) private var auth
 
     var body: some View {
-        if auth.isSignedIn {
-            ChatContainerView(auth: auth)
-        } else {
-            SignInView()
+        Group {
+            if auth.isSignedIn {
+                ChatContainerView(auth: auth)
+            } else {
+                SignInView()
+            }
+        }
+        .onChange(of: auth.isSignedIn) { _, signedIn in
+            if !signedIn { ChatStore.forgetSavedSession() }
         }
     }
 }

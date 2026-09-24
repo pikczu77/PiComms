@@ -24,7 +24,7 @@ enum AuthError: LocalizedError {
         case .notSignedIn: "Nie jesteś zalogowany."
         case .cancelled: "Logowanie anulowane."
         case .invalidCallback: "Nieprawidłowa odpowiedź z logowania Google."
-        case .invalidGrant: "Sesja wygasła – zaloguj się ponownie."
+        case .invalidGrant: "Połączenie z Google wygasło – połącz się ponownie."
         case .tokenRequestFailed(let body): "Błąd logowania Google: \(body)"
         }
     }
@@ -36,6 +36,9 @@ enum AuthError: LocalizedError {
 @Observable
 final class GoogleAuth {
     private(set) var isSignedIn: Bool
+    /// Google unieważnił logowanie (np. po 7 dniach w trybie testowym).
+    /// Użytkownik zostaje w aplikacji z historią czatu – wystarczy połączyć się ponownie.
+    private(set) var needsReauth = false
 
     @ObservationIgnored private var tokens: OAuthTokens?
     @ObservationIgnored private var refreshTask: Task<OAuthTokens, Error>?
@@ -124,6 +127,7 @@ final class GoogleAuth {
     /// Zwraca ważny access token, w razie potrzeby odświeżając go.
     func accessToken(forceRefresh: Bool = false) async throws -> String {
         guard let tokens else { throw AuthError.notSignedIn }
+        if needsReauth { throw AuthError.invalidGrant }
         if !forceRefresh, tokens.expiresAt > Date().addingTimeInterval(60) {
             return tokens.accessToken
         }
@@ -152,7 +156,8 @@ final class GoogleAuth {
             setTokens(fresh)
             return fresh.accessToken
         } catch AuthError.invalidGrant {
-            signOut()
+            // Nie wylogowujemy – aplikacja dalej pokazuje czat i prosi o ponowne połączenie.
+            needsReauth = true
             throw AuthError.invalidGrant
         }
     }
@@ -165,6 +170,7 @@ final class GoogleAuth {
             Keychain.delete(account: Self.keychainAccount)
         }
         isSignedIn = newValue != nil
+        needsReauth = false
     }
 
     // MARK: - Token endpoint

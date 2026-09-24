@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4F59A3576ED4AC232CA715D6 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A0BD7C091511BA1592A6E9 /* AvatarView.swift */; };
+		39C38A0CC2B3CEB580064400 /* ChatStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFAAFB0D319FD1C6FE76D4B2 /* ChatStore.swift */; };
+		5C93A34FD20ED7D35D99E661 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17746B91C94BB905FD11BAB4 /* ChatView.swift */; };
+		CBBE3A8A48BFA841EA37BC54 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E55049B35754E714911A8 /* Config.swift */; };
+		B06D2D31226C483083D6ECB2 /* DriveClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6ED0030AC30257E0398ED75 /* DriveClient.swift */; };
+		EE3C37C9691F20D5DE3477AA /* GoogleAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3FEAFFC1402701EB6BAB02 /* GoogleAuth.swift */; };
+		91EC9D3DFAD3A9C683519866 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52746DE3876597F977899664 /* Keychain.swift */; };
+		805A6232D3EC900D44609D82 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A5E9BA8482415525970AE5 /* Models.swift */; };
+		D5A06152E444DE829FABAB78 /* PiCommsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CC885F515EE284CDB58895 /* PiCommsApp.swift */; };
+		3DF55C5A7B92BBB1C2E2B082 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEE960A1E9E6021623965DF /* ProfileView.swift */; };
+		43BA0A659775B7C30274A885 /* SetupChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2D6AD22DCE30AE7D010A23 /* SetupChatView.swift */; };
+		E185FF80EB107B5260280661 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C31DE9697A03BCBD8949CAC /* SignInView.swift */; };
+		121B2F4179DFD18DB91D6010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42D35BC73752536E532BE199 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		52A0BD7C091511BA1592A6E9 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		CFAAFB0D319FD1C6FE76D4B2 /* ChatStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatStore.swift; sourceTree = "<group>"; };
+		17746B91C94BB905FD11BAB4 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		407E55049B35754E714911A8 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		B6ED0030AC30257E0398ED75 /* DriveClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveClient.swift; sourceTree = "<group>"; };
+		AC3FEAFFC1402701EB6BAB02 /* GoogleAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuth.swift; sourceTree = "<group>"; };
+		52746DE3876597F977899664 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		74A5E9BA8482415525970AE5 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		34CC885F515EE284CDB58895 /* PiCommsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiCommsApp.swift; sourceTree = "<group>"; };
+		1BEE960A1E9E6021623965DF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5E2D6AD22DCE30AE7D010A23 /* SetupChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupChatView.swift; sourceTree = "<group>"; };
+		7C31DE9697A03BCBD8949CAC /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		42D35BC73752536E532BE199 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F5BF48AA40CAD7891EB709FC /* PiComms.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiComms.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF6AA633395B1B76148E35B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B731CEFC6751AAE0EC69B98 = {
+			isa = PBXGroup;
+			children = (
+				20F4BD606C0F6D1645AE4919 /* PiComms */,
+				0A2C978E52A76F0AA9F68BB5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0A2C978E52A76F0AA9F68BB5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5BF48AA40CAD7891EB709FC /* PiComms.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20F4BD606C0F6D1645AE4919 /* PiComms */ = {
+			isa = PBXGroup;
+			children = (
+				52A0BD7C091511BA1592A6E9 /* AvatarView.swift */,
+				CFAAFB0D319FD1C6FE76D4B2 /* ChatStore.swift */,
+				17746B91C94BB905FD11BAB4 /* ChatView.swift */,
+				407E55049B35754E714911A8 /* Config.swift */,
+				B6ED0030AC30257E0398ED75 /* DriveClient.swift */,
+				AC3FEAFFC1402701EB6BAB02 /* GoogleAuth.swift */,
+				52746DE3876597F977899664 /* Keychain.swift */,
+				74A5E9BA8482415525970AE5 /* Models.swift */,
+				34CC885F515EE284CDB58895 /* PiCommsApp.swift */,
+				1BEE960A1E9E6021623965DF /* ProfileView.swift */,
+				5E2D6AD22DCE30AE7D010A23 /* SetupChatView.swift */,
+				7C31DE9697A03BCBD8949CAC /* SignInView.swift */,
+				42D35BC73752536E532BE199 /* Assets.xcassets */,
+			);
+			path = PiComms;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* PiComms */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE2BB50980DFD48FF547D497 /* Build configuration list for PBXNativeTarget "PiComms" */;
+			buildPhases = (
+				0F78FE532035D122ED352DBA /* Sources */,
+				DAF6AA633395B1B76148E35B /* Frameworks */,
+				943E4BBD9B51C81965501BA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PiComms;
+			productName = PiComms;
+			productReference = F5BF48AA40CAD7891EB709FC /* PiComms.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					42AEFBAE01D2DFD981F7DA7D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 01076EBF22530E406F54B419 /* Build configuration list for PBXProject "PiComms" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = pl;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				pl,
+				Base,
+			);
+			mainGroup = 2B731CEFC6751AAE0EC69B98;
+			productRefGroup = 0A2C978E52A76F0AA9F68BB5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* PiComms */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		943E4BBD9B51C81965501BA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				121B2F4179DFD18DB91D6010 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F78FE532035D122ED352DBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F59A3576ED4AC232CA715D6 /* AvatarView.swift in Sources */,
+				39C38A0CC2B3CEB580064400 /* ChatStore.swift in Sources */,
+				5C93A34FD20ED7D35D99E661 /* ChatView.swift in Sources */,
+				CBBE3A8A48BFA841EA37BC54 /* Config.swift in Sources */,
+				B06D2D31226C483083D6ECB2 /* DriveClient.swift in Sources */,
+				EE3C37C9691F20D5DE3477AA /* GoogleAuth.swift in Sources */,
+				91EC9D3DFAD3A9C683519866 /* Keychain.swift in Sources */,
+				805A6232D3EC900D44609D82 /* Models.swift in Sources */,
+				D5A06152E444DE829FABAB78 /* PiCommsApp.swift in Sources */,
+				3DF55C5A7B92BBB1C2E2B082 /* ProfileView.swift in Sources */,
+				43BA0A659775B7C30274A885 /* SetupChatView.swift in Sources */,
+				E185FF80EB107B5260280661 /* SignInView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6F0B85FC643AF9C218F627EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1B05A9D10F61E514E88AF240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E67DED621DA82404399DCDC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PiComms;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.pikczu.PiComms;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8951287761002419191396D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PiComms;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.pikczu.PiComms;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01076EBF22530E406F54B419 /* Build configuration list for PBXProject "PiComms" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F0B85FC643AF9C218F627EA /* Debug */,
+				1B05A9D10F61E514E88AF240 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE2BB50980DFD48FF547D497 /* Build configuration list for PBXNativeTarget "PiComms" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E67DED621DA82404399DCDC1 /* Debug */,
+				8951287761002419191396D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
